@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Ruihan Wu</title>
+  <meta name="description" content="Ruihan Wu works on robot learning, with a focus on tactile learning for dexterous manipulation.">
+  <meta property="og:image" content="assets/hero_mug_body_poster.jpg">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Montserrat:700&display=swap">
+  <script>
+const colorPreference = matchMedia("(prefers-color-scheme: dark)");
+let themeChoice;
+try { themeChoice = localStorage.getItem("home-theme"); } catch {}
+const currentTheme = () => themeChoice ?? (colorPreference.matches ? "dark" : "light");
+document.documentElement.dataset.theme = currentTheme();
+</script>
+  <style>
+:root {
+  color-scheme: light;
+  /* palette of the GT0 project page */
+  --bg: #FAF9F5;
+  --text: #141413;
+  --muted: #6B6A64;
+  --accent: #9C4728;
+  --hover: #D97757;
+  --divider: #E8E6DC;
+  --photo-bg: #FFFFFF;
+  --footer-bg: #141413;
+  --footer-text: #E8E6DC;
+  --shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #1F1E1D;
+  --text: #FAF9F5;
+  --muted: #B0AEA5;
+  --accent: #E08D6D;
+  --hover: #D97757;
+  --divider: #3A3935;
+  --photo-bg: #262624;
+  --footer-bg: #141413;
+  --footer-text: #B0AEA5;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  padding: 56px 0 70px;
+  color: var(--text);
+  background: var(--bg);
+  font: 300 1rem/1.5 Roboto, sans-serif;
+}
+.container { width: 100%; max-width: 800px; margin-inline: auto; padding-inline: 15px; }
+main { margin-top: 3rem; }
+h1, h2 { margin: 0 0 .5rem; font-weight: 300; line-height: 1.2; }
+h1 {
+  margin-bottom: 1rem;
+  font-family: "Gotham Bold","Gotham","Montserrat",sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+h2 { font-size: 2rem; }
+[id] { scroll-margin-top: 66px; }
+p { margin: 0 0 1rem; }
+strong { font-weight: bolder; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--hover); text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+.navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1030;
+  padding: .5rem 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--divider);
+  opacity: .95;
+}
+.navbar .container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-inline: 0;
+}
+.navbar a { padding: .5rem 6px; color: var(--text); }
+.navbar a[aria-current] { font-weight: bolder; color: var(--accent); }
+.navbar a:hover, .theme-toggle:hover { color: var(--hover); text-decoration: none; }
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 1.75rem;
+  height: 2.5rem;
+  margin-left: 4px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.theme-toggle svg { width: 1em; height: 1em; }
+.theme-toggle .sun, [data-theme="dark"] .theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: block; }
+
+.bio::after { display: block; clear: both; content: ""; }
+.profile { width: 100%; margin: 0 0 1rem; }
+.profile img, .photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: .25rem;
+  box-shadow: var(--shadow);
+}
+.profile img { display: block; height: auto; object-fit: cover; }
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background: var(--photo-bg);
+  border: 1px solid var(--divider);
+}
+.profile-links a { font-weight: 500; white-space: nowrap; }
+.profile-links .pending-link { font-weight: 500; white-space: nowrap; color: var(--muted); }
+html[data-theme="dark"] .swap img { filter: brightness(.72); }
+.swap { position: relative; display: block; width: 100%; min-width: 80px; max-width: 200px; border-radius: .25rem;
+  overflow: hidden; box-shadow: var(--shadow); background: #eeeeeb; }
+.swap img { display: block; width: 100%; height: auto; min-width: 0; max-width: none; border-radius: 0; box-shadow: none; }
+.swap .swap-top { position: absolute; inset: 0; opacity: 0; animation: swap-fade 7s ease-in-out infinite; }
+@keyframes swap-fade { 0%, 40% { opacity: 0; } 50%, 90% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .swap .swap-top { animation: none; } }
+.profile-links .sep { margin: 0 .4rem; color: var(--divider); }
+
+.news table { width: 100%; margin-bottom: 1rem; border-collapse: collapse; }
+.news th, .news td { padding: .6rem .3rem; text-align: left; vertical-align: top; }
+.news th { width: 20%; font-weight: 700; }
+
+.bibliography { list-style: none; padding: 0; margin: 2rem 0 1rem; }
+.bibliography li {
+  display: grid;
+  grid-template-columns: max(16.666667%, 110px) minmax(0, 1fr);
+  align-items: center;
+  margin: 0 -15px 1rem;
+}
+.preview, .publication-copy { min-width: 0; padding-inline: 15px; }
+.preview { margin: 0 0 1rem; }
+.preview img, .preview video {
+  display: block;
+  width: 100%;
+  min-width: 80px;
+  max-width: 200px;
+  height: auto;
+  border-radius: .25rem;
+  box-shadow: var(--shadow);
+}
+.venue-badge {
+  display: inline-block;
+  padding: .25em .4em;
+  border-radius: .125rem;
+  box-shadow: var(--shadow);
+  background: var(--accent);
+  color: var(--bg);
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.publication-copy { overflow-wrap: anywhere; }
+.publication-title { font-weight: bolder; }
+.publication-title a { color: inherit; }
+.publication-title a:hover { color: var(--hover); }
+svg.m { display: inline-block; overflow: visible; }
+.authors > em { border-bottom: 1px solid; font-style: normal; }
+.publication-link {
+  display: inline-block;
+  margin: .375rem .375rem .375rem 0;
+  padding: .25rem 1rem;
+  color: var(--text);
+  border: 1px solid currentColor;
+  border-radius: .125rem;
+  box-shadow: var(--shadow);
+  font-size: .64rem;
+  font-weight: 400;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.publication-link:hover { color: var(--hover); text-decoration: none; }
+
+footer {
+  position: fixed;
+  inset: auto 0 0;
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  font-size: .75rem;
+}
+footer .container { padding-block: 9px 8px; }
+
+@media (min-width: 576px) {
+  .profile { float: right; width: 30%; margin: 0 0 0 1rem; }
+  .news-list { max-height: 60vw; overflow: auto; }
+  .bibliography li { grid-template-columns: max(16.666667%, 110px) 66.666667%; }
+}
+</style>
+</head>
+<body>
+  <header class="navbar">
+    <nav class="container" aria-label="Main navigation">
+      <a href="#top" aria-current="page">about</a>
+<a href="#news">news</a>
+<a href="#publications">publications</a>
+      <button class="theme-toggle" type="button" aria-label="Dark mode"
+              aria-pressed="false" hidden>
+<svg class="moon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="currentColor">
+  <path d="M8.9 1.1A7 7 0 1 0 14.9 11 6.4 6.4 0 0 1 8.9 1.1Z"/>
+</svg>
+<svg class="sun" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"
+     fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+  <circle cx="8" cy="8" r="3" fill="currentColor"/>
+  <path d="M8 1v1m0 12v1M1 8h1m12 0h1M3 3l1 1m8 8 1 1m0-10-1 1m-8 8-1 1"/>
+</svg>
+</button>
+    </nav>
+  </header>
+  <main class="container">
+    <h1>Ruihan Wu</h1>
+    <div class="bio">
+      <div class="profile"><div class="photo-placeholder">Photo</div></div>
+      <p>I am currently a full-time research assistant at Sun Yat-sen University, where I am fortunate to be advised by Dr. Hanhui Li and <a href="https://lemondan.github.io" target="_blank" rel="noopener">Prof. Xiaodan Liang</a>. Previously, I received my B.Eng. from Sun Yat-sen University.</p>
+<p>My research is in <strong>robot learning</strong>, with the goal of robots that reason and act the way people do. In particular, I focus on <strong>tactile learning</strong>, from <strong>touch-guided action</strong> to <strong>unified representations across heterogeneous tactile sensors</strong>.</p>
+      <p class="profile-links"><a href="mailto:wurh33@alumni.sysu.edu.cn">Email</a><span class="sep" aria-hidden="true">|</span><span class="pending-link">Google Scholar</span><span class="sep" aria-hidden="true">|</span><a href="https://github.com/ru1han-wu" target="_blank" rel="noopener">Github</a></p>
+    </div>
+    <section class="news" aria-labelledby="news">
+      <h2 id="news">news</h2>
+      <div class="news-list">
+        <table><tbody>
+          <tr><th scope="row">Nov 16, 2026</th><td>Wrapped up <svg class="m" viewBox="72 72 19.508 8.302" style="width:1.958em;height:0.833em;vertical-align:-0.150em" role="img" aria-label="{GT}_{0}"><defs><g><g id="mfa382b484187-glyph-0-0"><path d="M 7.578125 -6.921875 C 7.578125 -6.953125 7.5625 -7.03125 7.46875 -7.03125 C 7.4375 -7.03125 7.421875 -7.015625 7.3125 -6.90625 L 6.625 -6.140625 C 6.53125 -6.28125 6.078125 -7.03125 4.96875 -7.03125 C 2.734375 -7.03125 0.5 -4.828125 0.5 -2.515625 C 0.5 -0.921875 1.609375 0.21875 3.21875 0.21875 C 3.65625 0.21875 4.109375 0.125 4.46875 -0.015625 C 4.96875 -0.21875 5.15625 -0.421875 5.328125 -0.625 C 5.421875 -0.375 5.6875 -0.015625 5.78125 -0.015625 C 5.828125 -0.015625 5.859375 -0.046875 5.859375 -0.046875 C 5.875 -0.0625 5.96875 -0.453125 6.015625 -0.65625 L 6.203125 -1.421875 C 6.25 -1.59375 6.296875 -1.765625 6.34375 -1.9375 C 6.453125 -2.375 6.453125 -2.40625 7.03125 -2.40625 C 7.078125 -2.40625 7.1875 -2.421875 7.1875 -2.609375 C 7.1875 -2.6875 7.140625 -2.71875 7.0625 -2.71875 C 6.828125 -2.71875 6.234375 -2.6875 6.015625 -2.6875 C 5.703125 -2.6875 4.921875 -2.71875 4.609375 -2.71875 C 4.53125 -2.71875 4.40625 -2.71875 4.40625 -2.515625 C 4.40625 -2.40625 4.484375 -2.40625 4.703125 -2.40625 C 4.71875 -2.40625 5 -2.40625 5.234375 -2.390625 C 5.5 -2.359375 5.546875 -2.328125 5.546875 -2.203125 C 5.546875 -2.109375 5.4375 -1.671875 5.328125 -1.296875 C 5.046875 -0.203125 3.765625 -0.09375 3.40625 -0.09375 C 2.453125 -0.09375 1.40625 -0.65625 1.40625 -2.1875 C 1.40625 -2.5 1.5 -4.140625 2.546875 -5.4375 C 3.09375 -6.109375 4.0625 -6.71875 5.046875 -6.71875 C 6.0625 -6.71875 6.65625 -5.953125 6.65625 -4.796875 C 6.65625 -4.390625 6.625 -4.390625 6.625 -4.28125 C 6.625 -4.1875 6.734375 -4.1875 6.765625 -4.1875 C 6.890625 -4.1875 6.890625 -4.203125 6.953125 -4.390625 Z M 7.578125 -6.921875 "/></g><g id="mfa382b484187-glyph-0-1"><path d="M 4.25 -6.046875 C 4.328125 -6.328125 4.359375 -6.390625 4.484375 -6.421875 C 4.578125 -6.4375 4.90625 -6.4375 5.109375 -6.4375 C 6.125 -6.4375 6.5625 -6.40625 6.5625 -5.625 C 6.5625 -5.46875 6.53125 -5.078125 6.484375 -4.828125 C 6.484375 -4.78125 6.453125 -4.671875 6.453125 -4.640625 C 6.453125 -4.578125 6.484375 -4.5 6.578125 -4.5 C 6.6875 -4.5 6.703125 -4.578125 6.734375 -4.734375 L 7 -6.46875 C 7.015625 -6.515625 7.015625 -6.609375 7.015625 -6.640625 C 7.015625 -6.75 6.921875 -6.75 6.75 -6.75 L 1.21875 -6.75 C 0.984375 -6.75 0.96875 -6.734375 0.890625 -6.546875 L 0.296875 -4.796875 C 0.296875 -4.78125 0.234375 -4.640625 0.234375 -4.609375 C 0.234375 -4.5625 0.296875 -4.5 0.359375 -4.5 C 0.453125 -4.5 0.46875 -4.5625 0.53125 -4.71875 C 1.0625 -6.265625 1.328125 -6.4375 2.796875 -6.4375 L 3.1875 -6.4375 C 3.46875 -6.4375 3.46875 -6.40625 3.46875 -6.3125 C 3.46875 -6.265625 3.4375 -6.140625 3.421875 -6.109375 L 2.09375 -0.78125 C 2 -0.421875 1.96875 -0.3125 0.90625 -0.3125 C 0.546875 -0.3125 0.484375 -0.3125 0.484375 -0.125 C 0.484375 0 0.59375 0 0.65625 0 C 0.921875 0 1.203125 -0.015625 1.46875 -0.015625 C 1.75 -0.015625 2.046875 -0.03125 2.328125 -0.03125 C 2.609375 -0.03125 2.875 -0.015625 3.15625 -0.015625 C 3.4375 -0.015625 3.734375 0 4.015625 0 C 4.109375 0 4.234375 0 4.234375 -0.203125 C 4.234375 -0.3125 4.15625 -0.3125 3.890625 -0.3125 C 3.65625 -0.3125 3.515625 -0.3125 3.265625 -0.328125 C 2.96875 -0.359375 2.890625 -0.390625 2.890625 -0.546875 C 2.890625 -0.5625 2.890625 -0.609375 2.9375 -0.75 Z M 4.25 -6.046875 "/></g><g id="mfa382b484187-glyph-1-0"><path d="M 3.59375 -2.21875 C 3.59375 -2.984375 3.5 -3.546875 3.1875 -4.03125 C 2.96875 -4.34375 2.53125 -4.625 1.984375 -4.625 C 0.359375 -4.625 0.359375 -2.71875 0.359375 -2.21875 C 0.359375 -1.71875 0.359375 0.140625 1.984375 0.140625 C 3.59375 0.140625 3.59375 -1.71875 3.59375 -2.21875 Z M 1.984375 -0.0625 C 1.65625 -0.0625 1.234375 -0.25 1.09375 -0.8125 C 1 -1.21875 1 -1.796875 1 -2.3125 C 1 -2.828125 1 -3.359375 1.09375 -3.734375 C 1.25 -4.28125 1.6875 -4.4375 1.984375 -4.4375 C 2.359375 -4.4375 2.71875 -4.203125 2.84375 -3.796875 C 2.953125 -3.421875 2.96875 -2.921875 2.96875 -2.3125 C 2.96875 -1.796875 2.96875 -1.28125 2.875 -0.84375 C 2.734375 -0.203125 2.265625 -0.0625 1.984375 -0.0625 Z M 1.984375 -0.0625 "/></g></g></defs><g fill="currentColor" fill-opacity="1"><use href="#mfa382b484187-glyph-0-0" x="72" y="78.80778"/><use href="#mfa382b484187-glyph-0-1" x="79.830635" y="78.80778"/></g><g fill="currentColor" fill-opacity="1"><use href="#mfa382b484187-glyph-1-0" x="87.03874" y="80.30216"/></g></svg>! 🎉🤖 Take a look at the <a href="gt0/" target="_blank" rel="noopener">project page</a>.</td></tr>
+<tr><th scope="row">Jun 22, 2026</th><td>Graduated from Sun Yat-sen University 🎓</td></tr>
+<tr><th scope="row">May 2026</th><td>Joined the HCP Lab at Sun Yat-sen University as a full-time research assistant 🦾</td></tr>
+        </tbody></table>
+      </div>
+    </section>
+    <section aria-labelledby="publications">
+      <h2 id="publications">selected publications</h2>
+      <ol class="bibliography">
+        <li>
+  <div class="preview"><span class="swap" role="img" aria-label="The same mug grasped in two ways: by its body for a handover, and by its handle when it is hot"><img src="gt0/figs/sim-mug-1.png" width="780" height="649" alt=""><img class="swap-top" src="gt0/figs/sim-mug-3.png" width="780" height="649" alt=""></span></div>
+  <div class="publication-copy">
+    <div class="publication-title"><a href="gt0/" aria-label="GT0: Grasping as Intended with Gesture Priors and Tactile-Guided Correction" target="_blank" rel="noopener"><svg class="m" viewBox="72 72 19.508 8.302" style="width:1.958em;height:0.833em;vertical-align:-0.150em" role="img" aria-label="{GT}_{0}"><defs><g><g id="mfa382b484187-glyph-0-0"><path d="M 7.578125 -6.921875 C 7.578125 -6.953125 7.5625 -7.03125 7.46875 -7.03125 C 7.4375 -7.03125 7.421875 -7.015625 7.3125 -6.90625 L 6.625 -6.140625 C 6.53125 -6.28125 6.078125 -7.03125 4.96875 -7.03125 C 2.734375 -7.03125 0.5 -4.828125 0.5 -2.515625 C 0.5 -0.921875 1.609375 0.21875 3.21875 0.21875 C 3.65625 0.21875 4.109375 0.125 4.46875 -0.015625 C 4.96875 -0.21875 5.15625 -0.421875 5.328125 -0.625 C 5.421875 -0.375 5.6875 -0.015625 5.78125 -0.015625 C 5.828125 -0.015625 5.859375 -0.046875 5.859375 -0.046875 C 5.875 -0.0625 5.96875 -0.453125 6.015625 -0.65625 L 6.203125 -1.421875 C 6.25 -1.59375 6.296875 -1.765625 6.34375 -1.9375 C 6.453125 -2.375 6.453125 -2.40625 7.03125 -2.40625 C 7.078125 -2.40625 7.1875 -2.421875 7.1875 -2.609375 C 7.1875 -2.6875 7.140625 -2.71875 7.0625 -2.71875 C 6.828125 -2.71875 6.234375 -2.6875 6.015625 -2.6875 C 5.703125 -2.6875 4.921875 -2.71875 4.609375 -2.71875 C 4.53125 -2.71875 4.40625 -2.71875 4.40625 -2.515625 C 4.40625 -2.40625 4.484375 -2.40625 4.703125 -2.40625 C 4.71875 -2.40625 5 -2.40625 5.234375 -2.390625 C 5.5 -2.359375 5.546875 -2.328125 5.546875 -2.203125 C 5.546875 -2.109375 5.4375 -1.671875 5.328125 -1.296875 C 5.046875 -0.203125 3.765625 -0.09375 3.40625 -0.09375 C 2.453125 -0.09375 1.40625 -0.65625 1.40625 -2.1875 C 1.40625 -2.5 1.5 -4.140625 2.546875 -5.4375 C 3.09375 -6.109375 4.0625 -6.71875 5.046875 -6.71875 C 6.0625 -6.71875 6.65625 -5.953125 6.65625 -4.796875 C 6.65625 -4.390625 6.625 -4.390625 6.625 -4.28125 C 6.625 -4.1875 6.734375 -4.1875 6.765625 -4.1875 C 6.890625 -4.1875 6.890625 -4.203125 6.953125 -4.390625 Z M 7.578125 -6.921875 "/></g><g id="mfa382b484187-glyph-0-1"><path d="M 4.25 -6.046875 C 4.328125 -6.328125 4.359375 -6.390625 4.484375 -6.421875 C 4.578125 -6.4375 4.90625 -6.4375 5.109375 -6.4375 C 6.125 -6.4375 6.5625 -6.40625 6.5625 -5.625 C 6.5625 -5.46875 6.53125 -5.078125 6.484375 -4.828125 C 6.484375 -4.78125 6.453125 -4.671875 6.453125 -4.640625 C 6.453125 -4.578125 6.484375 -4.5 6.578125 -4.5 C 6.6875 -4.5 6.703125 -4.578125 6.734375 -4.734375 L 7 -6.46875 C 7.015625 -6.515625 7.015625 -6.609375 7.015625 -6.640625 C 7.015625 -6.75 6.921875 -6.75 6.75 -6.75 L 1.21875 -6.75 C 0.984375 -6.75 0.96875 -6.734375 0.890625 -6.546875 L 0.296875 -4.796875 C 0.296875 -4.78125 0.234375 -4.640625 0.234375 -4.609375 C 0.234375 -4.5625 0.296875 -4.5 0.359375 -4.5 C 0.453125 -4.5 0.46875 -4.5625 0.53125 -4.71875 C 1.0625 -6.265625 1.328125 -6.4375 2.796875 -6.4375 L 3.1875 -6.4375 C 3.46875 -6.4375 3.46875 -6.40625 3.46875 -6.3125 C 3.46875 -6.265625 3.4375 -6.140625 3.421875 -6.109375 L 2.09375 -0.78125 C 2 -0.421875 1.96875 -0.3125 0.90625 -0.3125 C 0.546875 -0.3125 0.484375 -0.3125 0.484375 -0.125 C 0.484375 0 0.59375 0 0.65625 0 C 0.921875 0 1.203125 -0.015625 1.46875 -0.015625 C 1.75 -0.015625 2.046875 -0.03125 2.328125 -0.03125 C 2.609375 -0.03125 2.875 -0.015625 3.15625 -0.015625 C 3.4375 -0.015625 3.734375 0 4.015625 0 C 4.109375 0 4.234375 0 4.234375 -0.203125 C 4.234375 -0.3125 4.15625 -0.3125 3.890625 -0.3125 C 3.65625 -0.3125 3.515625 -0.3125 3.265625 -0.328125 C 2.96875 -0.359375 2.890625 -0.390625 2.890625 -0.546875 C 2.890625 -0.5625 2.890625 -0.609375 2.9375 -0.75 Z M 4.25 -6.046875 "/></g><g id="mfa382b484187-glyph-1-0"><path d="M 3.59375 -2.21875 C 3.59375 -2.984375 3.5 -3.546875 3.1875 -4.03125 C 2.96875 -4.34375 2.53125 -4.625 1.984375 -4.625 C 0.359375 -4.625 0.359375 -2.71875 0.359375 -2.21875 C 0.359375 -1.71875 0.359375 0.140625 1.984375 0.140625 C 3.59375 0.140625 3.59375 -1.71875 3.59375 -2.21875 Z M 1.984375 -0.0625 C 1.65625 -0.0625 1.234375 -0.25 1.09375 -0.8125 C 1 -1.21875 1 -1.796875 1 -2.3125 C 1 -2.828125 1 -3.359375 1.09375 -3.734375 C 1.25 -4.28125 1.6875 -4.4375 1.984375 -4.4375 C 2.359375 -4.4375 2.71875 -4.203125 2.84375 -3.796875 C 2.953125 -3.421875 2.96875 -2.921875 2.96875 -2.3125 C 2.96875 -1.796875 2.96875 -1.28125 2.875 -0.84375 C 2.734375 -0.203125 2.265625 -0.0625 1.984375 -0.0625 Z M 1.984375 -0.0625 "/></g></g></defs><g fill="currentColor" fill-opacity="1"><use href="#mfa382b484187-glyph-0-0" x="72" y="78.80778"/><use href="#mfa382b484187-glyph-0-1" x="79.830635" y="78.80778"/></g><g fill="currentColor" fill-opacity="1"><use href="#mfa382b484187-glyph-1-0" x="87.03874" y="80.30216"/></g></svg>: Grasping as Intended with Gesture Priors and Tactile-Guided Correction</a></div>
+    <div class="authors"><em><strong>Ruihan Wu</strong></em>, Kaiyuan Yang, Liang Tang, Yiqiang Yan, Shuxian Li, Xiaodan Liang, Hanhui Li</div>
+    <div class="periodical"><em>Manuscript under review, 2026</em></div>
+    <div class="links"><a href="gt0/" class="publication-link" target="_blank" rel="noopener">Project page</a></div>
+  </div>
+</li>
+      </ol>
+    </section>
+  </main>
+  <footer><div class="container">© 2026 Ruihan Wu. Layout adapted from the al-folio theme. Last updated November 2026.</div></footer>
+  <script>
+const themeToggle = document.querySelector(".theme-toggle");
+function applyTheme() {
+  const theme = currentTheme();
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+}
+themeToggle.hidden = false;
+applyTheme();
+themeToggle.addEventListener("click", () => {
+  themeChoice = currentTheme() === "dark" ? "light" : "dark";
+  try { localStorage.setItem("home-theme", themeChoice); } catch {}
+  applyTheme();
+});
+colorPreference.addEventListener("change", applyTheme);
+
+const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+document.querySelectorAll(".preview video").forEach((video) => {
+  const poster = video.previousElementSibling;
+  function showPoster() {
+    video.hidden = true;
+    poster.hidden = false;
+  }
+  function syncMotion() {
+    if (motionPreference.matches) {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+      showPoster();
+    } else {
+      video.src = video.dataset.src;
+      video.hidden = false;
+      poster.hidden = true;
+      video.play().catch(showPoster);
+    }
+  }
+  video.addEventListener("playing", () => {
+    if (!motionPreference.matches) {
+      video.hidden = false;
+      poster.hidden = true;
+    }
+  });
+  video.addEventListener("error", showPoster);
+  motionPreference.addEventListener("change", syncMotion);
+  syncMotion();
+});
+</script>
+</body>
+</html>
